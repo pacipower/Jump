@@ -9,6 +9,7 @@ TagManager:
   - Wall
   - Spike
   - Info
+  - Background
   layers:
   - Default
   - TransparentFX
