@@ -6,6 +6,7 @@ public class Platform : MonoBehaviour
 {
     private float move;
     bool isReached;
+
     // Start is called before the first frame update
     void Start()
     {

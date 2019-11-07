@@ -11,10 +11,21 @@ public class Level : MonoBehaviour
     public Spike spikeLeft;
     public Spike spikeRight;
     int platformSize;
+    
+    //public static Level level;
+
+    //private void Awake()
+    //{
+    //    level = GameObject.FindGameObjectWithTag("Level").GetComponent<Level>();
+    //}
+    //[SerializeField]
+    //private GameObject gameOverUI;
 
     // Start is called before the first frame update
     void Start()
     {
+        
+
         for (int i = 0; i < 100; i++)
         {
 
@@ -60,6 +71,17 @@ public class Level : MonoBehaviour
 
         }
     }
+
+    //public static void EndGame2()
+    //{
+    //    level.EndGame();
+    //}
+
+    //public void EndGame()
+    //{
+    //    //GameOver.UpdateGameOverText();
+    //    gameOverUI.SetActive(true);
+    //}
 
     // Update is called once per frame
     void Update()

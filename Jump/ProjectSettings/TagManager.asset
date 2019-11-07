@@ -10,6 +10,8 @@ TagManager:
   - Spike
   - Info
   - Background
+  - Level
+  - PlayerMenu
   layers:
   - Default
   - TransparentFX
