@@ -17,9 +17,9 @@ public class Cloud : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.x<-10)
+        if (transform.position.x<-14)
         {
-            transform.position = new Vector3(10, transform.parent.position.y-1+y, z);
+            transform.position = new Vector3(14, transform.parent.position.y-1+y, z);
         }
     }
 

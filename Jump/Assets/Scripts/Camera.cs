@@ -5,10 +5,13 @@ using UnityEngine;
 public class Camera : MonoBehaviour
 {
     public Transform player;
+    //private float y;
+    public static float minPosition;
     // Start is called before the first frame update
     void Start()
     {
-        
+        //y = transform.position.y;
+        minPosition = transform.position.y;
     }
 
     // Update is called once per frame
@@ -19,7 +22,7 @@ public class Camera : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (player.transform.position.y>2)
+        if (player.transform.position.y>minPosition)
         {
             transform.position = new Vector3(transform.position.x, player.transform.position.y, transform.position.z);
         }

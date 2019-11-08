@@ -12,6 +12,7 @@ TagManager:
   - Background
   - Level
   - PlayerMenu
+  - Wall2
   layers:
   - Default
   - TransparentFX

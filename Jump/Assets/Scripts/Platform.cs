@@ -6,17 +6,22 @@ public class Platform : MonoBehaviour
 {
     private float move;
     bool isReached;
+    int count;
+
+    //0.485
 
     // Start is called before the first frame update
     void Start()
     {
+        count = Mathf.RoundToInt((transform.position.y+1)/3.5f);
         isReached = false;
-        if ((transform.position.y/4.5)%2==1)
+        move = 0.05f+count*0.001f;
+        if (((transform.position.y+Level.offset)/Level.elevation)%2==1)
         {
-            move = -0.05f;
+            move = -move;
         }
-        else
-        move = 0.05f;
+        
+        
     }
 
     // Update is called once per frame
@@ -27,16 +32,35 @@ public class Platform : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag=="Wall")
+        if ((transform.position.y-Level.elevation+Level.offset+7)%14==0)
         {
-            move = -move;
+            if (other.gameObject.tag == "Wall")
+            {
+                move = -move;
+            }
         }
+        else
+        {
+            if (other.gameObject.tag == "Wall" || other.gameObject.tag == "Wall2")
+            {
+                move = -move;
+            }
+        }
+        
 
-        if (other.gameObject.tag=="Player" && !isReached)
+        if (other.gameObject.tag=="Player" && !isReached && other.gameObject.transform.position.y>transform.position.y)
         {
             isReached = true;
             Score.score++;
             Score.UpdateScore();
+            if (transform.position.y>Camera.minPosition)
+            {
+                Camera.minPosition = transform.position.y-1;
+                if ((Camera.minPosition-2.5f+1)%14==0)
+                {
+                    Level.needNewLevel = true;
+                }
+            }
         }
     }
 

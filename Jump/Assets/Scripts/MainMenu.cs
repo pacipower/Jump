@@ -24,16 +24,20 @@ public class MainMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerMenu.transform.position.y<1.8)
+        if (playerMenu.transform.position.y < 1.7549998)
         {
             isGrounded=true;
         }
 
+        
+    }
+
+    void FixedUpdate()
+    {
         if (isGrounded)
         {
             isGrounded = false;
-            playerMenu.AddForce(new Vector3(0, 10, 0), ForceMode2D.Impulse);
-            
+            playerMenu.AddForce(new Vector3(0, 8.5f, 0), ForceMode2D.Impulse);
         }
     }
 

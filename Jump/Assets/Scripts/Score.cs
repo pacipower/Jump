@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
+
 
 public class Score : MonoBehaviour
 {
     public static TMP_Text ScoreBoard;
-    //public static Text gameOverText;
     public static int score;
     public static int highScore;
     // Start is called before the first frame update
@@ -16,31 +15,27 @@ public class Score : MonoBehaviour
         ScoreBoard = GetComponent<TMP_Text>();
         score = 0;
         highScore = PlayerPrefs.GetInt("highscore",highScore);
-        ScoreBoard.text = $"Highscore:\n{highScore}\nScore:\n{score}";
+        //ScoreBoard.text = $"Highscore:\n{highScore}\nScore:\n{score}";
+        ScoreBoard.text = score.ToString();
     }
 
     // Update is called once per frame
     private void Update()
     {
-        
+        if (Time.timeScale==0)
+        {
+            ScoreBoard.enabled = false;
+        }
+        else ScoreBoard.enabled = true;
     }
+
+
 
     public static void UpdateScore()
     {
-        ScoreBoard.text = $"Highscore:\n{highScore}\nScore:\n{score}";
+        //ScoreBoard.text = $"Highscore:\n{highScore}\nScore:\n{score}";
+        ScoreBoard.text = score.ToString();
     }
 
-    //public static void UpdateGameOverText()
-    //{
-    //    //Text gameOverText = gameoverUI.GetComponent<Text>();
-
-    //    gameOverText.text = $"Game Over\nYour Score:\n{score}";
-    //    if (score > highScore)
-    //    {
-    //        highScore = score;
-    //        PlayerPrefs.SetInt("highscore", highScore);
-    //        PlayerPrefs.Save();
-    //        gameOverText.text += "\nNew Highscore";
-    //    }
-    //}
+    
 }
