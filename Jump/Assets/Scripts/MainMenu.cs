@@ -6,39 +6,38 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+
     [SerializeField]
-    private Rigidbody2D playerMenu;
+    private GameObject highscoreTableUI;
     public Text menuText;
     private int highscore;
+    string playerName;
     bool isGrounded;
+    public InputField inputField;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
+        //PlayerPrefs.DeleteKey("highscoreTable");
+        Time.timeScale = 1;
         isGrounded = false;
+        inputField.characterLimit = 10;
         highscore = PlayerPrefs.GetInt("highscore", highscore);
+        playerName = PlayerPrefs.GetString("playerName", playerName);
+        inputField.text = playerName;
         menuText.text = $"Highscore:\n{highscore}";
+
+
     }
 
-    
 
-    // Update is called once per frame
-    void Update()
+    public void PlayerName()
     {
-        if (playerMenu.transform.position.y < 1.7549998)
-        {
-            isGrounded=true;
-        }
-
-        
-    }
-
-    void FixedUpdate()
-    {
-        if (isGrounded)
-        {
-            isGrounded = false;
-            playerMenu.AddForce(new Vector3(0, 8.5f, 0), ForceMode2D.Impulse);
-        }
+        inputField.text = inputField.text.Replace(" ", "");
+        inputField.text = inputField.text.Replace(";", "");
+        playerName = inputField.text;
     }
 
     public void Quit()
@@ -49,6 +48,19 @@ public class MainMenu : MonoBehaviour
 
     public void Play()
     {
+        PlayerPrefs.SetString("playerName", playerName);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void HighscoreTable()
+    {
+        gameObject.SetActive(false);
+        highscoreTableUI.SetActive(true);
+    }
+
+    public void Back()
+    {
+        gameObject.SetActive(true);
+        highscoreTableUI.SetActive(false);
     }
 }

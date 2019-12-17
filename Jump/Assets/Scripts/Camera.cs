@@ -5,12 +5,10 @@ using UnityEngine;
 public class Camera : MonoBehaviour
 {
     public Transform player;
-    //private float y;
     public static float minPosition;
     // Start is called before the first frame update
     void Start()
     {
-        //y = transform.position.y;
         minPosition = transform.position.y;
     }
 

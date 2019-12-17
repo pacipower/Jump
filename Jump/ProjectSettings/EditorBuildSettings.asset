@@ -6,9 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
+    path: Assets/Scenes/LandscapeMainMenu.unity
     guid: 61f8833eacbfd92499efc94066cec250
   - enabled: 1
-    path: Assets/Scenes/MainLevel.unity
+    path: Assets/Scenes/LandscapeMainLevel.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 0
+    path: Assets/Scenes/PortraitMainMenu 1.unity
+    guid: 05a16e2cabafed9418f75281f56ed7dc
+  - enabled: 0
+    path: Assets/Scenes/PortraitMainLevel 1.unity
+    guid: 186b0fc5fadad424db30594f8363632d
   m_configObjects: {}

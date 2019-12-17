@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {
 
     Rigidbody2D player;
-    float move;
+    float move, speed;
     bool isGrounded;
     private bool isAlive;
     private bool left;
@@ -18,14 +18,22 @@ public class Player : MonoBehaviour
     private GameObject gameRunningUI;
     [SerializeField]
     private GameObject gamePausedUI;
-    //private GameObject quitButton;
     public Text gameOverText;
     public Text pauseScoreText;
+
+    public Animator animator;
+    public SpriteRenderer spriteRenderer;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        if (Level.landscape)
+        {
+            speed = 1;
+        }
+        else speed = 0.5f;
+
         Time.timeScale = 1;
         player = GetComponent<Rigidbody2D>();
         isAlive=true;
@@ -38,6 +46,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.tag=="Ground" || other.gameObject.tag == "Platform")
         {
             isGrounded = true;
+            animator.SetBool("isJumping", false);
         }
     }
 
@@ -54,6 +63,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.tag == "Platform")
         {
             transform.parent = null;
+            isGrounded = false;
         }
     }
 
@@ -70,8 +80,12 @@ public class Player : MonoBehaviour
         Time.timeScale = 0;
         UpdateGameOverText();
         isAlive = false;
+        if (Score.score>Score.highscoreBottom)
+        {
+            Score.addScore = true;
+        }
+        Destroy(gameObject);
         gameoverUI.SetActive(true);
-        //quitButton.SetActive(false);
         gameRunningUI.SetActive(false);
     }
 
@@ -91,39 +105,29 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        
+
         if (Time.timeScale!=0)
         {
             if (right)
             {
                 move = 0.05f;
+                spriteRenderer.flipX = false;
             }
             else if (left)
             {
                 move = -0.05f;
+                spriteRenderer.flipX = true;
+                
             }
             else move = 0;
         }
-        //if (isAlive)
-        //{
-        //    if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space)) && isGrounded)
-        //    {
-        //        player.AddForce(new Vector3(0, 8.5f, 0), ForceMode2D.Impulse);
-        //        isGrounded = false;
-        //    }
 
-        //    if (Input.GetAxis("Horizontal") < -0.1f)
-        //    {
-        //        move = -0.05f;
-        //    }
-        //    else if (Input.GetAxis("Horizontal") > 0.1f)
-        //    {
-        //        move = 0.05f;
-        //    }
-        //    else
-        //    {
-        //        move = 0f;
-        //    }
-        //}
+        animator.SetBool("isGrounded", isGrounded);
+        animator.SetFloat("move", Mathf.Abs(move));
+
+
     }
 
     public void Jump()
@@ -132,24 +136,22 @@ public class Player : MonoBehaviour
         {
             player.AddForce(new Vector3(0, 8.5f, 0), ForceMode2D.Impulse);
             isGrounded = false;
+            animator.SetBool("isJumping", true);
         }
     }
 
     public void Right()
     {
-        //move = 0.05f;
         right = true;
     }
 
     public void Left()
     {
-        //move = -0.05f;
         left = true;
     }
 
     public void Stop()
     {
-        //move = 0;
         right = false;
         left = false;
     }
@@ -171,7 +173,7 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.position += Vector3.right * move;
+        transform.position += Vector3.right * move*speed;
         if (transform.position.y<Camera.minPosition-7)
         {
             PlayerDeath();

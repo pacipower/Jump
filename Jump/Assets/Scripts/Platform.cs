@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
-    private float move;
+    private float move, speed;
     bool isReached;
     int count;
 
-    //0.485
 
     // Start is called before the first frame update
     void Start()
     {
+        if (Level.landscape)
+        {
+            speed = 1;
+        }
+        else speed = 0.5f;
+
         count = Mathf.RoundToInt((transform.position.y+1)/3.5f);
         isReached = false;
-        move = 0.05f+count*0.001f;
+        move = 0.05f*speed+count*0.001f*speed;
         if (((transform.position.y+Level.offset)/Level.elevation)%2==1)
         {
             move = -move;
